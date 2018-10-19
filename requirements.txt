@@ -1,0 +1,14 @@
+python-dotenv
+flask
+flask-wtf
+flask-login
+flask-sqlalchemy
+flask-migrate
+flask-bootstrap
+flask-httpauth
+flask-mail
+flask-moment
+PyMysql
+PyJWT
+HTMLParser
+marshmallow
