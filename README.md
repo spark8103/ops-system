@@ -24,10 +24,19 @@ Create uuid
 python3 -c "import uuid; print(uuid.uuid4().hex)"
 ```
 
+vim .env
 ```vim
 SECRET_KEY=hdQj5yE6ywaSQKC8FucEZvM9Xanypgryw
-DATABASE_URL=mysql+pymysql://microblog:<db-password>@localhost:3306/microblog
-MS_TRANSLATOR_KEY=<your-translator-key-here>
+DATABASE_URL=mysql+pymysql://ops:<db-password>@localhost:3306/ops
+OPS_ADMIN=admin
+```
+
+3. Edit .flaskenv
+vim .flaskenv
+```vim
+FLASK_APP=ops-system
+#FLASK_ENV=development
+FLASK_ENV=production
 ```
 
 3. Setting Mysql 
@@ -45,8 +54,10 @@ mysql> flush privileges;
 
 4. Run
 ```bash
-# ./venv/bin/python manage.py migrate
-# ./venv/bin/python manage.py runserver 0.0.0.0:80
+$ flask db init
+$ flask db
+$ flask db upgrade
+$ flask run -h 0.0.0.0
 ```
 
 5. Create admin

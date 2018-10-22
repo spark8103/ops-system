@@ -1,0 +1,34 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}{{ config['SITE_NAME'] }} - Login{% endblock %}
+
+{% block head %}
+{{ super() }}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{% endblock head %}
+
+{% from "security/_macros.html" import render_field, render_field_with_errors, render_checkbox_field %}
+{% include "security/_messages.html" %}
+{% block body %}
+{{ super() }}
+<div class="row-fluid">
+    <div class="col-sm-4 col-sm-offset-4">
+        <h1>Login</h1>
+        <div class="well">
+            <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+                {{ login_user_form.hidden_tag() }}
+                {{ render_field_with_errors(login_user_form.email) }}
+                {{ render_field_with_errors(login_user_form.password) }}
+                {{ render_checkbox_field(login_user_form.remember) }}
+                {{ render_field(login_user_form.next) }}
+                {{ render_field(login_user_form.submit, class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% include "security/_menu.html" %}

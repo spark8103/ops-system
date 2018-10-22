@@ -4,8 +4,13 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
-    <p>This is {{ config['SITE_NAME'] }} website.</p>
+    <h1>User info.</h1>
+    <ul>
+        <li>id: <b>{{ current_user.id }}</b></li>
+        <li>username: <b>{{ current_user.username }}</b></li>
+        <li>email: <b>{{ current_user.email }}</b></li>
+        <li>roles: <b>{% for i in current_user.roles %}{{ i }}{% if not loop.last %}, {% endif %}{% endfor %}</b></li>
+        <li>department: <b>{% for i in current_user.department %}{{ i }}{% if not loop.last %}, {% endif %}{% endfor %}</b></li>
+    </ul>
 </div>
-
 {% endblock %}

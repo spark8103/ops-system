@@ -7,6 +7,12 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'you-will-never-guess'
+    SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    SECURITY_TRACKABLE = True
+    SECURITY_RECOVERABLE = False
+    SECURITY_PASSWORDLESS = False
+    SECURITY_CHANGEABLE = True
     SITE_NAME = "ops-system"
     BOOTSTRAP_SERVE_LOCAL = True
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
@@ -15,7 +21,7 @@ class Config(object):
     SERVER_TYPE = ["server", "other"]
     SERVER_STATUS = ["Online", "Backup", "Maintenance"]
     SLA = ["99999", "9999", "999"]
-    IDC = ["zp", "wpnl", "oyl"]
+    IDC = ["ap-northeast-1", "aliyun", "office"]
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
@@ -29,6 +35,6 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
-    OPS_ADMIN = os.environ.get('OPS_ADMIN')
     OPS_USER_PER_PAGE = 10
     OPS_Software_PER_PAGE = 10
+
