@@ -16,6 +16,12 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         CMDB <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Server Manager</a></li>
+                        <li><a href="">IDC Manager</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('cmdb.software') }}">Software Manager</a></li>
+                    </ul>
                 </li>
                 <li><a href="/help">Help</a></li>
                 {% endif %}
@@ -32,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% if current_user.has_role("admin") %}
-                        <li><a href="/admin" }}">Manager</a></li>
+                        <li><a href="/admin">Manager</a></li>
                         <li class="divider"></li>
                         {% endif %}
                         <li><a href="{{ url_for('security.change_password') }}">Change Password</a></li>

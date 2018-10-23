@@ -19,9 +19,11 @@ class Config(object):
     USER_TYPE = ["admin", "dev", "qa", "ops", "dba", "user", "manager"]
     ENVIRONMENT = ["PRD", "DEV", "QA", "STG"]
     SERVER_TYPE = ["server", "other"]
-    SERVER_STATUS = ["Online", "Backup", "Maintenance"]
+    SERVER_STATUS = ["Running", "Stop", "Maintenance"]
     SLA = ["99999", "9999", "999"]
-    IDC = ["ap-northeast-1", "aliyun", "office"]
+
+    ZONE = ["ap-northeast-1a", "ap-northeast-1c", "香港可用区C", "华东 1 可用区 G", "office"]
+    REGION = ["hangzhou", "tokyo", "hongkong", "shanghai"]
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')

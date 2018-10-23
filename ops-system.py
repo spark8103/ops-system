@@ -1,7 +1,7 @@
 from app import create_app, db
 from flask_security import Security, SQLAlchemyUserDatastore, current_user
 from flask_security.utils import hash_password
-from app.models import User, Role, Department
+from app.models import User, Role, Department, Software
 
 from flask import url_for, abort, request, redirect
 from flask_admin import Admin
@@ -71,5 +71,5 @@ def create_user():
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User}
+    return {'db': db, 'User': User, 'Role': Role, 'Department': Department, 'Software': Software}
 

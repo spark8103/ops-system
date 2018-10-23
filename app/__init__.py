@@ -1,7 +1,7 @@
 import logging
 import os
 from logging.handlers import SMTPHandler, RotatingFileHandler
-from flask import Flask
+from flask import Flask, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
@@ -14,6 +14,15 @@ migrate = Migrate()
 mail = Mail()
 bootstrap = Bootstrap()
 moment = Moment()
+
+
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+                getattr(form, field).label.text,
+                error
+            ), "warning")
 
 
 def create_app(config_class=Config):
@@ -31,6 +40,9 @@ def create_app(config_class=Config):
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+    from app.cmdb import bp as cmdb_bp
+    app.register_blueprint(cmdb_bp, url_prefix='/cmdb')
 
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
