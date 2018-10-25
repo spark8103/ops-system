@@ -19,7 +19,7 @@ Quick start
 ```
 
 2. Edit .env
-Create uuid
+Create key
 ```shell
 python3 -c "import uuid; print(uuid.uuid4().hex)"
 ```

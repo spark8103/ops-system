@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block title %}{{ config['SITE_NAME'] }} - Server Manager{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-table/bootstrap-table.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    <h2>Server Manager</h2>
+    <div class="table-responsive">
+    </div>
+
+    <div id="toolbar" class="btn-group">
+        <button type="button" class="btn btn-default" id="server_add_button" title="Add">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
+    </div>
+
+    <table id="ListTable"
+           data-toggle="table"
+           data-url="{{ url_for('cmdb.server_list') }}"
+           data-query-params="queryParams"
+           data-pagination="true"
+           data-page-size=10
+           data-page-list="[10, 25, 50, All]"
+           data-search="true"
+           data-sort-name="id"
+           data-sort-order="asc"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-show-export="true"
+           data-show-pagination-switch="true"
+           data-striped="true"
+           data-toolbar="#toolbar">
+        <thead>
+        <tr>
+            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+            <th data-field="id" data-sortable="true" data-switchable="false" data-visible="false">ID</th>
+            <th data-field="name" data-sortable="true">Name</th>
+            <th data-field="idc.name" data-sortable="true">Idc</th>
+            <th data-field="instance_id" data-visible="false">instance_id</th>
+            <th data-field="instance_type" data-sortable="true">instance_type</th>
+            <th data-field="platform" data-sortable="true">platform</th>
+            <th data-field="image_name" data-visible="false">image_name</th>
+            <th data-field="key_name" data-visible="false">key_name</th>
+            <th data-field="private_ip">private_ip</th>
+            <th data-field="public_ip">public_ip</th>
+            <th data-field="block_device">block_device</th>
+            <th data-field="subnet" data-sortable="true">subnet</th>
+            <th data-field="create_time" data-visible="false">create_time</th>
+            <th data-field="category" data-sortable="true">category</th>
+            <th data-field="category_branch">category_branch</th>
+            <th data-field="status">status</th>
+            <th data-field="description" data-sortable="true">description</th>
+        </tr>
+        </thead>
+    </table>
+
+<!-- Model server_add -->
+<div class="modal fade" id="server_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">server Add</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" data-async data-target="#rating-modal" action="{{ url_for('cmdb.server_add') }}" method="POST">
+                    {{ add_server_form.csrf_token }}
+                    {{ render_field(add_server_form.name) }}
+                    {{ render_field(add_server_form.idc) }}
+                    {{ render_field(add_server_form.instance_id) }}
+                    {{ render_field(add_server_form.instance_type) }}
+                    {{ render_field(add_server_form.platform) }}
+                    {{ render_field(add_server_form.image_name) }}
+                    {{ render_field(add_server_form.key_name) }}
+                    {{ render_field(add_server_form.private_ip) }}
+                    {{ render_field(add_server_form.public_ip) }}
+                    {{ render_field(add_server_form.block_device) }}
+                    {{ render_field(add_server_form.subnet) }}
+<div class="form-group">
+    <label class="control-label col-sm-4">{{ add_server_form.create_time.label }}：</label>
+    <div class="col-sm-6">
+        {{ add_server_form.create_time(class="form-control", id="datetimepicker") }}
+        {% for error in add_server_form.create_time.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+</div>
+                    <!--{{ render_field(add_server_form.create_time) }}-->
+                    {{ render_field(add_server_form.category) }}
+                    {{ render_field(add_server_form.category_branch) }}
+                    {{ render_field(add_server_form.status) }}
+                    {{ render_field(add_server_form.description) }}
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary">submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-danger">reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- Model server_add -->
+
+<!-- Model server_edit -->
+<div class="modal fade" id="server_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">server Edit</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" data-async data-target="#rating-modal" action="{{ url_for('cmdb.server_edit') }}" method="POST">
+                    {{ edit_server_form.csrf_token }}
+                    {{ edit_server_form.e_id }}
+                    {{ render_field(edit_server_form.e_name) }}
+                    {{ render_field(edit_server_form.e_idc) }}
+                    {{ render_field(edit_server_form.e_instance_id) }}
+                    {{ render_field(edit_server_form.e_instance_type) }}
+                    {{ render_field(edit_server_form.e_platform) }}
+                    {{ render_field(edit_server_form.e_image_name) }}
+                    {{ render_field(edit_server_form.e_key_name) }}
+                    {{ render_field(edit_server_form.e_private_ip) }}
+                    {{ render_field(edit_server_form.e_public_ip) }}
+                    {{ render_field(edit_server_form.e_block_device) }}
+                    {{ render_field(edit_server_form.e_subnet) }}
+                    {{ render_field(edit_server_form.e_create_time) }}
+                    {{ render_field(edit_server_form.e_category) }}
+                    {{ render_field(edit_server_form.e_category_branch) }}
+                    {{ render_field(edit_server_form.e_status) }}
+                    {{ render_field(edit_server_form.e_description) }}
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary">submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- Model server_edit -->
+
+<!-- Model server_del -->
+<div class="modal fade" id="server_del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">server Del</h4>
+            </div>
+            <div class="modal-body">
+                    <form class="form-horizontal" data-async data-target="#rating-modal" action="{{ url_for('cmdb.server_del') }}" method="POST">
+                        <input id="server_del_id" name="id" type="hidden" value="">
+                        <input id="server_del_name" name="name" type="hidden" value="">
+                        <div class="form-group">
+                            <label class="control-label col-sm-offset-1" id="server_del_label">Are you sure?</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-8 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- Model server_del -->
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='bootstrap-table/bootstrap-table.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap-table/locale/bootstrap-table-zh-CN.js') }}"></script>
+
+<script>
+$(function () {
+    $('#ListTable').bootstrapTable({});
+
+    $("button#server_add_button").click(function(){
+        $('#server_add').modal('show');
+    });
+
+    $('#datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+})
+
+
+$(function() {
+    $( ".dtpick" ).datetimepicker({
+        format: "yyyy-mm-dd hh:ii:ss",
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+});
+
+function queryParams() {
+    return {
+        type: 'owner',
+        sort: 'updated',
+        direction: 'desc',
+        per_page: 1000000,
+        page: 1
+    };
+}
+
+function actionFormatter(value, row, index) {
+    return [
+        '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+        '<i class="glyphicon glyphicon-edit"></i>',
+        '</a>',
+        '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+        '<i class="glyphicon glyphicon-remove"></i>',
+        '</a>'
+    ].join('');
+}
+
+window.actionEvents = {
+    'click .edit': function (e, value, row, index) {
+        $('#e_id').val(row.id);
+        $('#e_name').val(row.name);
+        $('#e_idc').val(row.idc.id);
+        $('#e_instance_id').val(row.instance_id);
+        $('#e_instance_type').val(row.instance_type);
+        $('#e_platform').val(row.platform);
+        $('#e_image_name').val(row.image_name);
+        $('#e_key_name').val(row.key_name);
+        $('#e_private_ip').val(row.private_ip);
+        $('#e_public_ip').val(row.public_ip);
+        $('#e_block_device').val(row.block_device);
+        $('#e_subnet').val(row.subnet);
+        $('#e_create_time').val(row.create_time);
+        $('#e_category').val(row.category);
+        $('#e_category_branch').val(row.category_branch);
+        $('#e_status').val(row.status);
+        $('#e_description').val(row.description);
+        $('#server_edit').modal('show');
+    },
+    'click .remove': function (e, value, row, index) {
+        document.getElementById('server_del_label').innerHTML = 'Delete <span style="color: blue;">' + row.name + "</span>, are you sure?";
+        $('#server_del_id').val(row.id);
+        $('#server_del_name').val(row.name);
+        $('#server_del').modal('show');
+    }
+};
+</script>
+{% endblock %}

@@ -30,16 +30,15 @@ class EditSoftwareForm(FlaskForm):
 
 class AddIdcForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired()])
-    zone = StringField('Zone')
-    region = StringField('Region')
+    zone = SelectField('Zone')
+    region = SelectField('Region')
     description = TextAreaField('Description')
 
     def __init__(self, *args, **kwargs):
         super(AddIdcForm, self).__init__(*args, **kwargs)
-        self.zone.choices = [(i, i) for i in current_app.config['ZONE']]
-        self.region.choices = [(i, i) for i in current_app.config['REGION']]
+        self.zone.choices = [(0, 'Choose...')] + [(i, i) for i in current_app.config['ZONE']]
+        self.region.choices = [(0, 'Choose...')] + [(i, i) for i in current_app.config['REGION']]
 
-    @staticmethod
     def validate_name(self, field):
         if Idc.query.filter_by(name=field.data).first():
             raise ValidationError('%s already in use.' % field.data)
@@ -48,14 +47,14 @@ class AddIdcForm(FlaskForm):
 class EditIdcForm(FlaskForm):
     e_id = HiddenField('ID', validators=[InputRequired()])
     e_name = StringField('Name', validators=[InputRequired()])
-    e_zone = StringField('Zone')
-    e_region = StringField('Region')
+    e_zone = SelectField('Zone')
+    e_region = SelectField('Region')
     e_description = TextAreaField('Description')
 
     def __init__(self, *args, **kwargs):
         super(EditIdcForm, self).__init__(*args, **kwargs)
-        self.zone.choices = [(i, i) for i in current_app.config['ZONE']]
-        self.region.choices = [(i, i) for i in current_app.config['REGION']]
+        self.e_zone.choices = [(i, i) for i in current_app.config['ZONE']]
+        self.e_region.choices = [(i, i) for i in current_app.config['REGION']]
 
     @staticmethod
     def validate_name(self, field):
@@ -84,9 +83,8 @@ class AddServerForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super(AddServerForm, self).__init__(*args, **kwargs)
         self.idc.choices = [(0, 'Choose...')] + [(idc.id, idc.name) for idc in Idc.query.order_by(Idc.name).all()]
-        self.status.choices = [(i, i) for i in current_app.config['SERVER_STATUS']]
+        self.status.choices = [(0, 'Choose...')] + [(i, i) for i in current_app.config['SERVER_STATUS']]
 
-    @staticmethod
     def validate_name(self, field):
         if Server.query.filter_by(name=field.data).first():
             raise ValidationError('%s already in use.' % field.data)

@@ -507,7 +507,7 @@ smup:
   icons:
     - shoe-prints
   label: Smup
-  url: 'https://www.atomsoftware.com.au'
+  url: 'https://www.atomserver.com.au'
 speakap:
   icons:
     - speakap
@@ -611,8 +611,8 @@ via:
     - layer-group
     - skull-crossbones
     - user-injured
-  label: VIA Traffic Software Solutions
-  url: 'https://www.via.software'
+  label: VIA Traffic server Solutions
+  url: 'https://www.via.server'
 victor-costan:
   icons:
     - otter

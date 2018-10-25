@@ -19,10 +19,10 @@ curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/departments
 curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/departments/6
 ```bash
 
-## software api
+## server api
 ```bash
-curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/softwares
-curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/softwares/7
+curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/servers
+curl -s --user admin:admin http://127.0.0.1:5000/api/v1.0/servers/7
 ```bash
 
 ## idc api

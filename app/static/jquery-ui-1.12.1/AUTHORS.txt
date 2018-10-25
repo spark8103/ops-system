@@ -57,7 +57,7 @@ Mike Alsup <malsup@gmail.com>
 Robson Braga Araujo <robsonbraga@gmail.com>
 Pierre-Henri Ausseil <ph.ausseil@gmail.com>
 Christopher McCulloh <cmcculloh@gmail.com>
-Andrew Newcomb <ext.github@preceptsoftware.co.uk>
+Andrew Newcomb <ext.github@preceptserver.co.uk>
 Lim Chee Aun <cheeaun@gmail.com>
 Jorge Barreiro <yortx.barry@gmail.com>
 Daniel Steigerwald <daniel@steigerwald.cz>

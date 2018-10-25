@@ -17,8 +17,8 @@
                         CMDB <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="">Server Manager</a></li>
-                        <li><a href="">IDC Manager</a></li>
+                        <li><a href="{{ url_for('cmdb.server') }}">Server Manager</a></li>
+                        <li><a href="{{ url_for('cmdb.idc') }}">IDC Manager</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ url_for('cmdb.software') }}">Software Manager</a></li>
                     </ul>

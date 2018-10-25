@@ -19,7 +19,7 @@ class Config(object):
     USER_TYPE = ["admin", "dev", "qa", "ops", "dba", "user", "manager"]
     ENVIRONMENT = ["PRD", "DEV", "QA", "STG"]
     SERVER_TYPE = ["server", "other"]
-    SERVER_STATUS = ["Running", "Stop", "Maintenance"]
+    SERVER_STATUS = ["running", "stopped", "terminated"]
     SLA = ["99999", "9999", "999"]
 
     ZONE = ["ap-northeast-1a", "ap-northeast-1c", "香港可用区C", "华东 1 可用区 G", "office"]
@@ -38,5 +38,5 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
     OPS_USER_PER_PAGE = 10
-    OPS_Software_PER_PAGE = 10
+    OPS_server_PER_PAGE = 10
 
